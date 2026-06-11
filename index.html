@@ -134,6 +134,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     // preserve ordering (React before ReactDOM before Babel before text/babel).
     const doc = new DOMParser().parseFromString(template, 'text/html');
     document.documentElement.replaceWith(doc.documentElement);
+    // Public presentation mode: keep the interactive scenes and controls,
+    // but remove the editor-style thumbnail rail.
+    const deckStage = document.querySelector('deck-stage');
+    if (deckStage) deckStage.setAttribute('no-rail', '');
     const dead = Array.from(document.scripts);
     for (const old of dead) {
       const s = document.createElement('script');

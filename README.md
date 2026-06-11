@@ -18,7 +18,8 @@ dense slide text difficult to read.
 
 ## Interaction
 
-- Use the previous, next, and reset controls to move through the 26 slides.
+- Use the previous, next, and reset controls to move through the 26 full-screen scenes.
+- The public presentation intentionally hides the editor-style thumbnail rail.
 - Scroll vertically or use the browser URL hash to move between slides.
 - Click cards and controls to reveal examples and explore concepts.
 - Use the built-in activities for audience participation and discussion.

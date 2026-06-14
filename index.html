@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       const resourceStyle = document.createElement('style');
       resourceStyle.textContent = `
         .session-resource-panel{
-          position:absolute;right:72px;bottom:70px;width:460px;
+          position:absolute;right:72px;bottom:190px;width:460px;
           display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center;
           padding:22px;border:1px solid rgba(243,239,228,.22);border-radius:20px;
           background:rgba(21,19,15,.92);box-shadow:0 18px 60px rgba(0,0,0,.35);
@@ -181,7 +181,24 @@ document.addEventListener('DOMContentLoaded', async function() {
         .session-resource-panel .sr-links{display:flex;flex-wrap:wrap;gap:8px;}
         .session-resource-panel .sr-links a{padding:8px 10px;border:1px solid rgba(243,239,228,.2);border-radius:8px;color:#f3efe4;font:600 15px/1.2 ui-monospace,monospace;text-decoration:none;}
         .session-resource-panel a:hover,.session-resource-panel a:focus-visible{border-color:#e98b3d;color:#e98b3d;outline:none;}
-        @media(max-width:1100px){.session-resource-panel{right:24px;bottom:24px;transform:scale(.78);transform-origin:bottom right;}}
+        .experience-launch{
+          position:absolute;right:72px;top:68px;width:390px;padding:20px 22px;
+          border:1px solid rgba(243,239,228,.22);border-radius:16px;
+          background:rgba(21,19,15,.9);box-shadow:0 14px 44px rgba(0,0,0,.28);
+          color:#f3efe4;text-decoration:none;z-index:5;
+          transition:border-color .15s,transform .15s,background .15s;
+        }
+        .experience-launch:hover,.experience-launch:focus-visible{
+          border-color:#e98b3d;background:rgba(233,139,61,.12);
+          transform:translateY(-3px);outline:none;
+        }
+        .experience-launch .el-kicker{display:block;margin-bottom:7px;color:#e98b3d;font:700 16px/1.2 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;}
+        .experience-launch .el-title{display:block;font:700 27px/1.15 Archivo,sans-serif;}
+        .experience-launch .el-copy{display:block;margin-top:7px;color:rgba(243,239,228,.66);font:17px/1.35 Archivo,sans-serif;}
+        @media(max-width:1100px){
+          .session-resource-panel{right:24px;bottom:150px;transform:scale(.78);transform-origin:bottom right;}
+          .experience-launch{right:24px;top:24px;transform:scale(.78);transform-origin:top right;}
+        }
       `;
       document.head.appendChild(resourceStyle);
 
@@ -202,6 +219,37 @@ document.addEventListener('DOMContentLoaded', async function() {
         </div>
       `;
       firstSlide.appendChild(panel);
+
+      const addExperienceLaunch = (label, href, kicker, title, copy) => {
+        const slide = document.querySelector(`deck-stage section[data-label="${label}"]`);
+        if (!slide) return;
+        const launch = document.createElement('a');
+        launch.className = 'experience-launch';
+        launch.href = href;
+        launch.target = '_blank';
+        launch.rel = 'noopener';
+        launch.innerHTML = `
+          <span class="el-kicker">${kicker}</span>
+          <span class="el-title">${title} →</span>
+          <span class="el-copy">${copy}</span>
+        `;
+        slide.appendChild(launch);
+      };
+
+      addExperienceLaunch(
+        'Media Ecology Timeline',
+        'https://minerclass.github.io/orality_game/',
+        'Interactive media ecology',
+        'Enter Keeper of the Word',
+        'Carry one message through five shifts in how knowledge moves.'
+      );
+      addExperienceLaunch(
+        'Friction Calibrator',
+        'https://minerclass.github.io/friction-game/',
+        'Interactive design practice',
+        'Open Friction Lab',
+        'Practice deciding which friction to preserve, reduce, or redesign.'
+      );
     }
   } catch (err) {
     setStatus('Error unpacking: ' + err.message);

@@ -40,6 +40,7 @@ GitHub will display the presentation at:
 ## Repository structure
 
 - `index.html` — self-contained presentation and embedded visual assets
+- `dupage-session-qr.png` — opening-slide QR code for the session short link
 - `.nojekyll` — tells GitHub Pages to serve the files directly
 - `.gitignore` — excludes common local and editor files
 
@@ -47,6 +48,9 @@ GitHub will display the presentation at:
 
 The presentation links to these public resources:
 
+- <https://bit.ly/4eIqti4>
+- <https://minerclass.github.io/friction-game/>
+- <https://minerclass.github.io/orality_game/>
 - <https://micahminer.com/projects/>
 
 ## Privacy and maintenance

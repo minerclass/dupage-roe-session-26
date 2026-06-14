@@ -161,6 +161,48 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
       window.Babel.transformScriptTags();
     }
+
+    // Add a durable opening-slide resource panel without rebuilding the
+    // generated standalone presentation bundle.
+    const firstSlide = document.querySelector('deck-stage section');
+    if (firstSlide) {
+      const resourceStyle = document.createElement('style');
+      resourceStyle.textContent = `
+        .session-resource-panel{
+          position:absolute;right:72px;bottom:70px;width:460px;
+          display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center;
+          padding:22px;border:1px solid rgba(243,239,228,.22);border-radius:20px;
+          background:rgba(21,19,15,.92);box-shadow:0 18px 60px rgba(0,0,0,.35);
+          backdrop-filter:blur(12px);z-index:5;
+        }
+        .session-resource-panel img{width:150px;height:150px;border-radius:12px;background:#fff;}
+        .session-resource-panel .sr-kicker{margin:0 0 5px;color:#e98b3d;font:700 17px/1.2 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;}
+        .session-resource-panel .sr-url{display:inline-block;margin-bottom:13px;color:#f3efe4;font:700 27px/1.1 ui-monospace,monospace;text-decoration:none;}
+        .session-resource-panel .sr-links{display:flex;flex-wrap:wrap;gap:8px;}
+        .session-resource-panel .sr-links a{padding:8px 10px;border:1px solid rgba(243,239,228,.2);border-radius:8px;color:#f3efe4;font:600 15px/1.2 ui-monospace,monospace;text-decoration:none;}
+        .session-resource-panel a:hover,.session-resource-panel a:focus-visible{border-color:#e98b3d;color:#e98b3d;outline:none;}
+        @media(max-width:1100px){.session-resource-panel{right:24px;bottom:24px;transform:scale(.78);transform-origin:bottom right;}}
+      `;
+      document.head.appendChild(resourceStyle);
+
+      const panel = document.createElement('aside');
+      panel.className = 'session-resource-panel';
+      panel.setAttribute('aria-label', 'Session links');
+      panel.innerHTML = `
+        <a href="https://bit.ly/4eIqti4" target="_blank" rel="noopener" aria-label="Open DuPage ROE session link">
+          <img src="dupage-session-qr.png" alt="QR code for bit.ly/4eIqti4">
+        </a>
+        <div>
+          <p class="sr-kicker">Join the session</p>
+          <a class="sr-url" href="https://bit.ly/4eIqti4" target="_blank" rel="noopener">bit.ly/4eIqti4</a>
+          <div class="sr-links">
+            <a href="https://minerclass.github.io/friction-game/" target="_blank" rel="noopener">Open Friction Lab</a>
+            <a href="https://minerclass.github.io/orality_game/" target="_blank" rel="noopener">Open Keeper of the Word</a>
+          </div>
+        </div>
+      `;
+      firstSlide.appendChild(panel);
+    }
   } catch (err) {
     setStatus('Error unpacking: ' + err.message);
     console.error('Bundle unpack error:', err);
